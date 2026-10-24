@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú de Boda - Javier & Cristina</title>
+  
+  <!-- Tipografías de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       CARGA DE LA TIPOGRAFÍA PERSONALIZADA AUTOGRAPHY
+       ========================================================= */
+    @font-face {
+      font-family: 'Autography';
+      src: url('Autography.otf') format('opentype'),
+           url('Autography.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* =========================================================
+       VARIABLES DE COLOR Y FUENTES
+       ========================================================= */
+    :root {
+      --rood-red: #9e4a47;         /* Rojo Terracota / Borgoña */
+      --groen-green: #6e806d;      /* Verde Oliva Floral */
+      --text-main: #3a3532;        /* Texto principal en tono carbón suave */
+      
+      --font-menu: 'Autography', cursive; /* APLICADA TIPOGRAFÍA AUTOGRAPHY */
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f9f6f0;
+      font-family: var(--font-serif);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    /* CONTENEDOR DE PRESENTACIÓN (Efecto Plato) */
+    .plate-mockup {
+      position: relative;
+      background: radial-gradient(circle, #f4edd6 30%, #eae5dc 85%, #d8d0c4 100%);
+      padding: 50px;
+      border-radius: 50%;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.12), inset 0 0 20px rgba(255,255,255,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* TARJETA DE LA MINUTA CON LA IMAGEN FondoMinuta DE FONDO */
+    .menu-card {
+      position: relative;
+      width: 500px;
+      min-height: 750px;
+      background-image: url('FondoMinuta.png'); /* Asegúrate de que el nombre coincide con tu archivo */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 50px 45px 40px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.05);
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    /* CABECERA: "Menú" y Nombres */
+    .menu-header {
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .menu-title {
+      font-family: var(--font-menu);
+      font-size: 5rem; /* Ajustado el tamaño para la tipografía Autography */
+      color: var(--rood-red);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 5px;
+    }
+
+    .names-sub {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* SECCIONES DEL MENÚ (CENTRADAS) */
+    .menu-sections {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .section-block {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .section-title {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .item-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--text-main);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .item-desc {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      color: #635d58;
+      font-style: italic;
+      line-height: 1.2;
+    }
+
+    /* PIE DE PÁGINA CON NOTA */
+    .menu-footer {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .footer-note {
+      font-family: var(--font-serif);
+      font-size: 0.8rem;
+      color: #78716a;
+      font-style: italic;
+      line-height: 1.3;
+    }
+
+    /* BOTÓN DE IMPRESIÓN */
+    .actions-bar {
+      margin-top: 25px;
+    }
+
+    .btn-print {
+      background-color: var(--groen-green);
+      color: #ffffff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 25px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .btn-print:hover {
+      background-color: var(--rood-red);
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================
+       ESTILOS CONFIGURADOS PARA IMPRIMIR SOLO LA TARJETA
+       ========================================================= */
+    @media print {
+      /* Forzar que los navegadores impriman las imágenes de fondo */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: auto !important;
+        display: block !important;
+      }
+
+      /* Ocultar el plato de la presentación */
+      .plate-mockup {
+        background: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        display: block !important;
+      }
+
+      /* Ocultar el botón */
+      .actions-bar {
+        display: none !important;
+      }
+
+      /* Ajustes de tarjeta para la impresión limpia */
+      .menu-card {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 auto !important;
+        page-break-inside: avoid;
+      }
+
+      @page {
+        margin: 0;
+        size: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .plate-mockup {
+        padding: 10px;
+        background: none;
+        box-shadow: none;
+      }
+      .menu-card {
+        width: 100%;
+        max-width: 340px;
+        padding: 40px 25px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="plate-mockup">
+    <div class="menu-card">
+
+      <!-- CABECERA -->
+      <div class="menu-header">
+        <h1 class="menu-title">Menú</h1>
+      </div>
+
+      <!-- SECCIONES DEL MENÚ -->
+      <div class="menu-sections">
+        
+        <!-- ENTRANTE / SORBETE -->
+        <div class="section-block">
+          <h2 class="section-title">SORBETE</h2>
+          <p class="item-title">Sorbete de Mandarina</p>
+        </div>
+
+        <!-- PLATO PRINCIPAL -->
+        <div class="section-block">
+          <h2 class="section-title">PLATO PRINCIPAL</h2>
+          <p class="item-title">Carrillada ibérica</p>
+          <p class="item-desc">Con puré de manzana y salsa de ciruela al vino</p>
+          <p class="item-title" style="margin-top: 4px;">Cordero lechal asado</p>
+          <p class="item-desc">Con patatas panaderas</p>
+        </div>
+
+        <!-- POSTRE -->
+        <div class="section-block">
+          <h2 class="section-title">POSTRE</h2>
+          <p class="item-title">Torrija de pan brioche</p>
+          <p class="item-desc">Con crema y bola de helado</p>
+          <p class="item-title" style="margin-top: 4px;">Tarta de queso manchego cremosa</p>
+        </div>
+
+        <!-- BODEGA Y BEBIDAS -->
+        <div class="section-block">
+          <h2 class="section-title">BODEGA</h2>
+          <p class="item-title">Vino Tinto Rioja Cune Crianza</p>
+          <p class="item-title">Vino Blanco Cune Rioja Semidulce y Rueda Verdejo</p>
+          <p class="item-title">Cava brut</p>
+        </div>
+
+      </div>
+
+      <!-- PIE DE PÁGINA -->
+      <div class="menu-footer">
+        <p class="footer-note">Por favor, consulte sobre opciones vegetarianas o alérgenos.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTÓN PARA IMPRIMIR O GUARDAR EN PDF -->
+  <div class="actions-bar">
+    <button class="btn-print" onclick="window.print()">Imprimir / Guardar en PDF</button>
+  </div>
+
+</body>
+</html>

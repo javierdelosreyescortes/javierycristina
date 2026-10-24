@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Javier & Cristina - Invitación de Boda</title>
+  
+  <!-- Tipografías de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       PALETA DE COLORES EXTRAÍDA DE LA IMAGEN DE FLORES
+       ========================================================= */
+    :root {
+      --bg-light: #f9f6f0;        /* Beige muy claro / Crema para fondo */
+      --bg-card: #f1ebd8;         /* Tono beige intermedio para contrastes */
+      --green-leaf: #6e806d;      /* Groen (Verde hoja floral) */
+      --green-dark: #4b584a;      /* Verde oscuro para textos leíbles */
+      --red-terracotta: #9e4a47;  /* Rood (Rojo borgoña / terracota) */
+      --orange-warm: #e38b57;     /* Oranje (Naranja cálido / Melocotón) */
+      --blue-dusty: #839bb0;      /* Blauw (Azul empolvado) */
+      --beige-taupe: #a89d91;     /* Beige (Gris pardo tenue) */
+      --text-dark: #3d3835;       /* Texto oscuro principal */
+      
+      --font-script: 'Alex Brush', cursive;
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: var(--font-serif);
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       BOTÓN CONTROL DE MÚSICA FLOTANTE
+       ========================================================= */
+    .music-control-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      background-color: var(--green-leaf);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .music-control-btn:hover {
+      transform: scale(1.1);
+      background-color: var(--orange-warm);
+    }
+
+    .music-icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* =========================================================
+       1. FONDO A PANTALLA COMPLETA CON IMAGEN Y SOBRE KRAFT
+       ========================================================= */
+    .envelope-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url('fondosobre.jfif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    }
+
+    .envelope-overlay.opened {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      height: 350px;
+      cursor: pointer;
+      z-index: 100000;
+      background-image: url('sobreinicio.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 6px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .envelope-wrapper:hover {
+      transform: scale(1.03);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .wax-seal-hotspot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      z-index: 100001;
+      cursor: pointer;
+      animation: sealPulse 2.5s infinite ease-in-out;
+    }
+
+    .seal-instruction {
+      margin-top: 25px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+      background-color: rgba(61, 56, 53, 0.65);
+      padding: 6px 18px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      animation: fadeInOut 2s infinite;
+    }
+
+    @keyframes sealPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(227, 139, 87, 0); }
+      50% { box-shadow: 0 0 0 14px rgba(227, 139, 87, 0.4); }
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 540px) {
+      .envelope-wrapper {
+        height: 280px;
+      }
+      .wax-seal-hotspot {
+        width: 75px;
+        height: 75px;
+      }
+    }
+
+    /* =========================================================
+       2. CONTENIDO PRINCIPAL DE LA INVITACIÓN (PRIMERA SECCIÓN)
+       ========================================================= */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 15px 0;
+      position: relative;
+      background-image: url('FondoInvitacion.png');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
+
+    .hero-card {
+      max-width: 550px;
+      margin: 0 auto;
+      background: rgba(249, 246, 240, 0.82);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    }
+
+    .top-header { 
+      margin-bottom: 20px; 
+    }
+
+    .names {
+      font-family: var(--font-script);
+      font-size: 3.8rem;
+      color: var(--red-terracotta);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 5px;
+    }
+
+    .date-top {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: var(--beige-taupe);
+      font-weight: 500;
+    }
+
+    .center-content {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .flower-wrapper {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flower-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+    }
+
+    .flower-img:hover {
+      transform: scale(1.08);
+    }
+
+    .poem-text {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--green-dark);
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .callout-text {
+      font-family: var(--font-script);
+      font-size: 3.2rem;
+      color: var(--red-terracotta);
+      margin: 10px 0;
+      line-height: 1.2;
+    }
+
+    .sub-callout {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--green-dark);
+    }
+
+    .bottom-banner {
+      background-color: var(--green-leaf);
+      padding: 40px 20px 30px;
+      position: relative;
+      margin-top: 40px;
+      clip-path: polygon(0 15px, 5% 5px, 10% 18px, 15% 8px, 20% 15px, 25% 4px, 30% 16px, 35% 6px, 40% 18px, 45% 8px, 50% 15px, 55% 5px, 60% 17px, 65% 7px, 70% 18px, 75% 6px, 80% 15px, 85% 5px, 90% 18px, 95% 8px, 100% 15px, 100% 100%, 0 100%);
+    }
+
+    .timer-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    .timer-block {
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .timer-num {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      display: block;
+      line-height: 1;
+    }
+
+    .timer-sub {
+      font-family: var(--font-script);
+      font-size: 1.3rem;
+      color: #f1f3ea;
+      margin-top: 5px;
+    }
+
+    .timer-divider {
+      width: 1px;
+      height: 35px;
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* =========================================================
+       3. SECCIÓN CELEBRACIÓN Y CRONOGRAMA
+       ========================================================= */
+    .celebration-section {
+      padding: 80px 20px 60px;
+      background: transparent;
+      text-align: center;
+    }
+
+    .celebration-title {
+      font-family: var(--font-script);
+      font-size: 3.8rem;
+      color: var(--red-terracotta);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .venue-name {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--green-dark);
+      margin-bottom: 25px;
+    }
+
+    .btn-location-pill {
+      display: inline-block;
+      padding: 10px 32px;
+      background-color: var(--green-leaf);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 20px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(110, 128, 109, 0.3);
+    }
+
+    .btn-location-pill:hover {
+      background-color: var(--orange-warm);
+      transform: translateY(-2px);
+    }
+
+    .timeline-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 40px auto 20px;
+      padding: 10px 0;
+      overflow-x: auto;
+    }
+
+    .timeline-line {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+      background-color: var(--green-leaf);
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+
+    .timeline-events {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      min-width: 750px;
+      padding: 0 20px;
+    }
+
+    .timeline-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 140px;
+      position: relative;
+    }
+
+    .timeline-node {
+      width: 22px;
+      height: 22px;
+      background-color: var(--orange-warm);
+      border-radius: 50%;
+      z-index: 3;
+      margin: 6px 0;
+      box-shadow: 0 0 0 4px var(--bg-light);
+    }
+
+    .dashed-connector {
+      width: 1px;
+      height: 35px;
+      border-left: 2px dashed var(--orange-warm);
+    }
+
+    .time-pill {
+      display: inline-block;
+      background-color: var(--green-leaf);
+      color: #ffffff;
+      padding: 4px 16px;
+      border-radius: 15px;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      margin: 6px 0;
+    }
+
+    .event-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--text-dark);
+      font-weight: 600;
+      margin: 4px 0;
+    }
+
+    .event-icon { width: 65px; height: 65px; }
+    .event-img { width: 65px; height: 65px; object-fit: contain; }
+
+    .item-top { justify-content: flex-end; }
+    .item-bottom { justify-content: flex-start; }
+
+    /* CRONOGRAMA EN VERTICAL PARA MÓVILES */
+    @media (max-width: 768px) {
+      .timeline-container {
+        padding: 20px 10px;
+        overflow-x: visible;
+      }
+
+      .timeline-line {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        right: auto;
+        width: 2px;
+        height: 100%;
+        transform: translateX(-50%);
+      }
+
+      .timeline-events {
+        flex-direction: column;
+        min-width: 100%;
+        gap: 35px;
+        padding: 0;
+      }
+
+      .timeline-item {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .timeline-item.item-top {
+        flex-direction: row;
+      }
+
+      .timeline-item.item-bottom {
+        flex-direction: row-reverse;
+      }
+
+      .item-content, .item-illustration {
+        flex: 1;
+        text-align: center;
+      }
+
+      .item-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .dashed-connector {
+        display: none;
+      }
+
+      .timeline-node {
+        margin: 0 15px;
+        flex-shrink: 0;
+      }
+    }
+
+    /* =========================================================
+       4. SECCIÓN GALERÍA DE FOTOS
+       ========================================================= */
+    .gallery-section {
+      padding: 70px 0 40px;
+      background: transparent;
+      text-align: center;
+    }
+
+    .gallery-title {
+      font-family: var(--font-script);
+      font-size: 3.8rem;
+      color: var(--red-terracotta);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .gallery-subtitle {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--green-dark);
+      margin-bottom: 20px;
+      padding: 0 20px;
+    }
+
+    .btn-upload-pill {
+      display: inline-block;
+      padding: 10px 28px;
+      background-color: var(--green-leaf);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 20px;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(110, 128, 109, 0.3);
+    }
+
+    .btn-upload-pill:hover {
+      background-color: var(--orange-warm);
+      transform: translateY(-2px);
+    }
+
+    .gallery-callout {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      margin: 25px 0 40px;
+      padding: 0 20px;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 10px 20px;
+      scrollbar-width: none;
+    }
+
+    .carousel-track::-webkit-scrollbar { display: none; }
+
+    .carousel-slide {
+      flex: 0 0 220px;
+      height: 280px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 2px solid #ffffff;
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .carousel-slide:hover .gallery-img { transform: scale(1.05); }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--beige-taupe);
+      border-radius: 50%;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .carousel-btn:hover {
+      background-color: #ffffff;
+      color: var(--orange-warm);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .prev-btn { left: 15px; }
+    .next-btn { right: 15px; }
+
+    /* =========================================================
+       5. SECCIÓN CONFIRMACIÓN DE ASISTENCIA
+       ========================================================= */
+    .rsvp-section {
+      padding: 70px 20px 60px;
+      background: transparent;
+      text-align: center;
+    }
+
+    .rsvp-title {
+      font-family: var(--font-script);
+      font-size: 3.8rem;
+      color: var(--red-terracotta);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .rsvp-subtitle {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--green-dark);
+      margin-bottom: 30px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 10px;
+    }
+
+    .forms-wrapper {
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 15px;
+      overflow: hidden;
+      background-color: #ffffff;
+      box-shadow: 0 6px 20px rgba(110, 128, 109, 0.15);
+      border: 2px solid var(--blue-dusty);
+    }
+
+    .forms-wrapper iframe {
+      width: 100%;
+      border: none;
+    }
+
+    /* =========================================================
+       6. SECCIÓN MÁS INFORMACIÓN (ACORDEÓN)
+       ========================================================= */
+    .more-info-section {
+      position: relative;
+      padding: 80px 20px 100px;
+      background: transparent;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .more-info-title {
+      font-family: var(--font-script);
+      font-size: 3.8rem;
+      color: var(--red-terracotta);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 35px;
+    }
+
+    .accordion-container {
+      max-width: 440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .accordion-item {
+      border-radius: 25px;
+      overflow: hidden;
+      background-color: var(--green-leaf);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .accordion-header {
+      width: 100%;
+      padding: 14px 28px;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .accordion-header:hover { background-color: var(--green-dark); }
+
+    .accordion-icon {
+      font-size: 1.3rem;
+      font-weight: 300;
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      background-color: #f0eae1;
+      color: var(--text-dark);
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      text-align: left;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 24px;
+    }
+
+    .accordion-item.active .accordion-icon { transform: rotate(45deg); }
+    .accordion-item.active .accordion-body {
+      padding: 18px 24px;
+      max-height: 200px;
+    }
+
+    .daisy-side {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .daisy-left-top { top: 10%; left: -20px; transform: rotate(-15deg); }
+    .daisy-right-top { top: 12%; right: -20px; transform: rotate(15deg); }
+
+    /* AJUSTES RESPONSIVE PARA MÓVILES */
+    @media (max-width: 600px) {
+      .hero-section {
+        padding-top: 25px;
+      }
+      .hero-card {
+        padding: 20px 15px;
+      }
+      .names { font-size: 2.8rem; }
+      .callout-text { font-size: 2.3rem; }
+      .poem-text { font-size: 1rem; }
+      .celebration-title, .gallery-title, .rsvp-title, .more-info-title { font-size: 3rem; }
+      .timer-container { gap: 8px; }
+      .timer-num { font-size: 1.6rem; }
+      .timer-sub { font-size: 1.1rem; }
+      .daisy-side { width: 90px; height: 90px; }
+    }
+  </style>
+</head>
+<body class="no-scroll">
+
+  <!-- AUDIO DE FONDO Y BOTÓN FLOTANTE -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="musica1.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="music-control-btn" id="musicToggleBtn" title="Reproducir / Pausar Música">
+    <svg class="music-icon" id="musicIcon" viewBox="0 0 24 24">
+      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+  </button>
+
+  <!-- OVERLAY INTERACTIVO DEL SOBRE CON FONDO A PANTALLA COMPLETA -->
+  <div class="envelope-overlay" id="envelopeOverlay">
+    <div class="envelope-wrapper" id="envelopeWrapper">
+      <div class="wax-seal-hotspot"></div>
+    </div>
+    <p class="seal-instruction">Haz clic en el sello para abrir</p>
+  </div>
+
+  <!-- SECCIÓN INTRODUCCIÓN -->
+  <section class="hero-section">
+    <div class="hero-card">
+      <div class="top-header">
+        <h1 class="names">Javier y Cristina</h1>
+        <p class="date-top">24 · 04 · 2027</p>
+      </div>
+
+      <div class="center-content">
+        <div class="flower-wrapper">
+          <img src="florpng.png" alt="Flor decorativa" class="flower-img">
+        </div>
+
+        <p class="poem-text">
+          "La vida nos ha dado amor,<br>
+          y un hogar lleno de historias...<br>
+          ¡Solo nos faltaba una cosa, decir sí quiero!"
+        </p>
+
+        <h2 class="callout-text">¡Nos casamos!</h2>
+
+        <p class="sub-callout">
+          y queremos compartirlo con<br>
+          quienes más queremos
+        </p>
+      </div>
+    </div>
+
+    <!-- BANDA VERDE CON CUENTA REGRESIVA -->
+    <div class="bottom-banner">
+      <div class="timer-container">
+        <div class="timer-block"><span class="timer-num" id="days">00</span><span class="timer-sub">días</span></div>
+        <div class="timer-divider"></div>
+        <div class="timer-block"><span class="timer-num" id="hours">00</span><span class="timer-sub">horas</span></div>
+        <div class="timer-divider"></div>
+        <div class="timer-block"><span class="timer-num" id="minutes">00</span><span class="timer-sub">minutos</span></div>
+        <div class="timer-divider"></div>
+        <div class="timer-block"><span class="timer-num" id="seconds">00</span><span class="timer-sub">segundos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN CELEBRACIÓN Y CRONOGRAMA -->
+  <section class="celebration-section">
+    <h2 class="celebration-title">Celebración</h2>
+    <p class="venue-name">Finca Un Agua</p>
+
+    <a href="https://maps.google.com/?q=Finca+Un+Agua+Talamanca+de+Jarama" target="_blank" rel="noopener" class="btn-location-pill">Ubicación</a>
+
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      <div class="timeline-events">
+        
+        <div class="timeline-item item-top">
+          <div class="item-content">
+            <p class="event-title">Recepción de invitados</p>
+            <span class="time-pill">17.30h</span>
+          </div>
+          <div class="dashed-connector"></div>
+          <div class="timeline-node"></div>
+          <div class="item-illustration">
+            <img src="sobrepng.png" alt="Sobre recepción" class="event-img">
+          </div>
+        </div>
+
+        <div class="timeline-item item-top">
+          <div class="item-content">
+            <p class="event-title">Ceremonia</p>
+            <span class="time-pill">18.00h</span>
+          </div>
+          <div class="dashed-connector"></div>
+          <div class="timeline-node"></div>
+          <div class="item-illustration">
+            <img src="alianza.png" alt="Ceremonia alianzas" class="event-img">
+          </div>
+        </div>
+
+        <div class="timeline-item item-top">
+          <div class="item-content">
+            <p class="event-title">Cóctel</p>
+            <span class="time-pill">19.00h</span>
+          </div>
+          <div class="dashed-connector"></div>
+          <div class="timeline-node"></div>
+          <div class="item-illustration">
+            <svg viewBox="0 0 80 80" class="event-icon">
+              <path d="M 20 30 L 35 45 L 28 45 L 28 58 L 20 58 M 28 58 L 36 58" fill="none" stroke="#3d3835" stroke-width="1.5"/>
+              <path d="M 20 30 C 25 30, 45 30, 50 30 L 35 45 Z" fill="#e38b57" opacity="0.6" stroke="#3d3835" stroke-width="1.5"/>
+              <circle cx="32" cy="34" r="2.5" fill="#3d3835"/>
+              <path d="M 42 25 L 57 40 L 50 40 L 50 53 L 42 53 M 50 53 L 58 53" fill="none" stroke="#3d3835" stroke-width="1.5"/>
+              <path d="M 42 25 C 47 25, 67 25, 72 25 L 57 40 Z" fill="#6e806d" opacity="0.6" stroke="#3d3835" stroke-width="1.5"/>
+              <circle cx="54" cy="29" r="2.5" fill="#3d3835"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="timeline-item item-bottom">
+          <div class="item-content">
+            <span class="time-pill">20.30h</span>
+            <p class="event-title">Cena</p>
+          </div>
+          <div class="dashed-connector"></div>
+          <div class="timeline-node"></div>
+          <div class="item-illustration">
+            <svg viewBox="0 0 80 80" class="event-icon">
+              <path d="M 18 30 L 18 40 C 18 44, 24 44, 24 40 L 24 30 M 21 43 L 21 62" fill="none" stroke="#3d3835" stroke-width="1.5"/>
+              <path d="M 62 30 C 58 35, 58 45, 62 48 L 62 62" fill="none" stroke="#3d3835" stroke-width="1.5"/>
+              <circle cx="40" cy="46" r="18" fill="none" stroke="#3d3835" stroke-width="1.5"/>
+              <circle cx="40" cy="46" r="13" fill="none" stroke="#e38b57" stroke-width="1.5" stroke-dasharray="2 2"/>
+              <path d="M 38 46 C 36 43, 42 41, 42 46 C 42 49, 38 48, 38 46 Z" fill="#9e4a47"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="timeline-item item-top">
+          <div class="item-content">
+            <p class="event-title">Fiesta</p>
+            <span class="time-pill">23.00h</span>
+          </div>
+          <div class="dashed-connector"></div>
+          <div class="timeline-node"></div>
+          <div class="item-illustration">
+            <svg viewBox="0 0 80 80" class="event-icon">
+              <line x1="40" y1="10" x2="40" y2="25" stroke="#3d3835" stroke-width="1.5"/>
+              <circle cx="40" cy="45" r="18" fill="none" stroke="#3d3835" stroke-width="1.5"/>
+              <path d="M 23 45 Q 40 35 57 45 M 23 45 Q 40 55 57 45 M 40 27 Q 30 45 40 63 M 40 27 Q 50 45 40 63" fill="none" stroke="#3d3835" stroke-width="1" opacity="0.6"/>
+              <path d="M 62 25 L 64 29 L 68 31 L 64 33 L 62 37 L 60 33 L 56 31 L 60 29 Z" fill="#e38b57"/>
+              <path d="M 18 55 L 19 57 L 21 58 L 19 59 L 18 61 L 17 59 L 15 58 L 17 57 Z" fill="#e38b57"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN RECUERDOS Y GALERÍA DE FOTOS -->
+  <section class="gallery-section">
+    <h2 class="gallery-title">Recuerdos</h2>
+    <p class="gallery-subtitle">Sube y comparte tus mejores momentos del gran día en nuestro álbum</p>
+
+    <a href="#" class="btn-upload-pill" onclick="alert('¡Gracias por compartir tus fotos con nosotros!'); return false;">Subir tus fotos</a>
+
+    <p class="gallery-callout">¡Queremos revivir cada instante contigo!</p>
+
+    <div class="carousel-container">
+      <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Anterior">&#10094;</button>
+
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide"><img src="galeria/foto1.jpg" alt="Recuerdo de boda 1" class="gallery-img"></div>
+        <div class="carousel-slide"><img src="galeria/foto2.jpg" alt="Recuerdo de boda 2" class="gallery-img"></div>
+        <div class="carousel-slide"><img src="galeria/foto3.jpg" alt="Recuerdo de boda 3" class="gallery-img"></div>
+        <div class="carousel-slide"><img src="galeria/foto4.jpg" alt="Recuerdo de boda 4" class="gallery-img"></div>
+        <div class="carousel-slide"><img src="galeria/foto5.jpg" alt="Recuerdo de boda 5" class="gallery-img"></div>
+      </div>
+
+      <button class="carousel-btn next-btn" id="nextBtn" aria-label="Siguiente">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- SECCIÓN CONFIRMACIÓN DE ASISTENCIA -->
+  <section class="rsvp-section">
+    <h2 class="rsvp-title">Confirmación de asistencia</h2>
+    <p class="rsvp-subtitle">Por favor, confírmanos tu asistencia y dinos tu canción favorita para la fiesta.</p>
+
+    <div class="forms-wrapper">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd46WxQqhSV8S1JVH5B3f-UHltzAscz1_nESOWlS1efPFUAcw/viewform?embedded=true" height="711" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+    </div>
+  </section>
+
+  <!-- SECCIÓN MÁS INFORMACIÓN (ACORDEÓN) -->
+  <section class="more-info-section">
+    <svg class="daisy-side daisy-left-top" viewBox="0 0 100 100" fill="none">
+      <path d="M50 50 L20 10 C35 5 45 25 50 50 Z" fill="#ffffff" stroke="#e38b57" stroke-width="0.8"/>
+      <path d="M50 50 L10 35 C10 20 30 30 50 50 Z" fill="#ffffff" stroke="#e38b57" stroke-width="0.8"/>
+      <path d="M50 50 L10 65 C10 80 30 70 50 50 Z" fill="#ffffff" stroke="#e38b57" stroke-width="0.8"/>
+      <circle cx="50" cy="50" r="12" fill="#e38b57"/>
+    </svg>
+
+    <svg class="daisy-side daisy-right-top" viewBox="0 0 100 100" fill="none">
+      <path d="M50 50 L80 10 C65 5 55 25 50 50 Z" fill="#ffffff" stroke="#e38b57" stroke-width="0.8"/>
+      <path d="M50 50 L90 35 C90 20 70 30 50 50 Z" fill="#ffffff" stroke="#e38b57" stroke-width="0.8"/>
+      <circle cx="50" cy="50" r="12" fill="#e38b57"/>
+    </svg>
+
+    <h2 class="more-info-title">Más información</h2>
+
+    <div class="accordion-container">
+      <div class="accordion-item">
+        <button class="accordion-header"><span>Hoteles</span><span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>Hotel Recomendado: Hotel Finca Un Agua (a 5 min del recinto).</p></div>
+      </div>
+      
+      <div class="accordion-item">
+        <button class="accordion-header">
+          <span>Menú de la Boda</span>
+          <span class="accordion-icon">+</span>
+        </button>
+        <div class="accordion-body">
+          <p style="margin-bottom: 12px;">Consulta la selección de platos y bodega que disfrutaremos en nuestro gran día.</p>
+          <a href="menu.html" target="_blank" class="btn-location-pill" style="display: inline-block; text-decoration: none;">Ver Menú Completo</a>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header"><span>Vestimenta</span><span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>Formal / Elegante. Traje de chaqueta para ellos y traje de noche o cóctel para ellas.</p></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header"><span>Regalos</span><span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>Vuestra presencia es nuestro mejor regalo. Si deseáis tener un detalle con nosotros: ES12 3456 7890 1234 5678 9012.</p></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header"><span>Transporte</span><span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>Dispondremos de servicio de autobuses de ida y vuelta con paradas en Madrid centro.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTS JAVASCRIPT -->
+  <script>
+    /* SCRIPT INICIALIZADOR OFICIAL DE TALLY */
+    var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // CONTROL DE AUDIO Y BOTÓN FLOTANTE
+      const bgMusic = document.getElementById('bgMusic');
+      const musicToggleBtn = document.getElementById('musicToggleBtn');
+      const musicIcon = document.getElementById('musicIcon');
+
+      const iconNote = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
+      const iconMute = '<path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 3.04 0 3.84-2.21L19.73 21 21 19.73 4.27 3zM14 7h4V3h-6v4.18l2 2V7z"/>';
+
+      function playAudio() {
+        bgMusic.play().then(() => {
+          musicIcon.innerHTML = iconNote;
+        }).catch(err => {
+          console.log("El navegador bloqueó la reproducción automática del audio:", err);
+        });
+      }
+
+      musicToggleBtn.addEventListener('click', () => {
+        if (bgMusic.paused) {
+          bgMusic.play();
+          musicIcon.innerHTML = iconNote;
+        } else {
+          bgMusic.pause();
+          musicIcon.innerHTML = iconMute;
+        }
+      });
+
+      // 1. APERTURA DEL SOBRE E INICIO DE LA MÚSICA AL HACER CLIC
+      const envelopeWrapper = document.getElementById('envelopeWrapper');
+      const envelopeOverlay = document.getElementById('envelopeOverlay');
+
+      if (envelopeWrapper && envelopeOverlay) {
+        const openEnvelope = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          playAudio();
+
+          envelopeOverlay.classList.add('opened');
+          document.body.classList.remove('no-scroll');
+        };
+
+        envelopeWrapper.addEventListener('click', openEnvelope);
+        envelopeWrapper.addEventListener('touchstart', openEnvelope, { passive: false });
+      }
+
+      // 2. TEMPORIZADOR DE CUENTA REGRESIVA (24 de Abril de 2027)
+      const weddingDate = new Date(2027, 3, 24, 17, 30, 0).getTime();
+
+      function updateTimer() {
+        const now = new Date().getTime();
+        const diff = weddingDate - now;
+
+        if (diff > 0) {
+          const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+          document.getElementById('days').innerText = d;
+          document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+          document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+          document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
+        }
+      }
+
+      setInterval(updateTimer, 1000);
+      updateTimer();
+
+      // 3. DESPLAZAMIENTO DEL CARRUSEL DE GALERÍA
+      const track = document.getElementById('carouselTrack');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      if (track && prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => track.scrollBy({ left: -280, behavior: 'smooth' }));
+        nextBtn.addEventListener('click', () => track.scrollBy({ left: 280, behavior: 'smooth' }));
+      }
+
+      // 4. ACORDEÓN DE MÁS INFORMACIÓN
+      document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+          const currentItem = header.parentElement;
+          document.querySelectorAll('.accordion-item').forEach(item => {
+            if (item !== currentItem) item.classList.remove('active');
+          });
+          currentItem.classList.toggle('active');
+        });
+      });
+
+    });
+  </script>
+
+</body>
+</html>
